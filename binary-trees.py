@@ -33,6 +33,26 @@ class BinaryTree:
                         current.right = new_node
                         inserted = True
 
+    def height(self):
+        return self.node_height(self.head)
+
+    def node_height(self, current):
+        if current == None:
+            return 0
+        if current.left == None and current.right == None:
+            return 1
+        else:
+            return 1 + max([self.node_height(current.left), self.node_height(current.right)])
+
+    def size(self):
+        return self.node_size(self.head)
+    
+    def node_size(self, current):
+        if current:
+            return 1 + self.node_size(current.left) + self.node_size(current.right)
+        else:
+            return 0
+
     def traverse(self, style):
         if style == 'inorder':
             return self.in_order_traversal(self.head)
@@ -62,7 +82,7 @@ class BinaryTree:
             return []
 
 input_list = []
-for i in range(100):
+for i in range(10):
     input_list.append(i)
 random.shuffle(input_list)
 
@@ -74,3 +94,6 @@ for i in input_list:
 print(my_tree.traverse('inorder'))
 print(my_tree.traverse('preorder'))
 print(my_tree.traverse('postorder'))
+
+print('Height:', my_tree.height())
+print('Size', my_tree.size())
